@@ -1,0 +1,13 @@
+1/14/2018
+
+Tasks:
+Build a simple python application using some gui package(maybe easygui?) and record samples for a specific person at a specific interval and store that data in a database for the purpose of training(use  averagebandpower.py for reading data, build the gui into it) (Will)
+
+Build a very simple model that compares the samples with each other and sums the differences at each point. Then gives a difference score for each dataSet to determine which person is wearing the headset(at the moment what we have is take the difference of the input data and the database data for each user find the difference at each second, sum it all, do so for each type of brainwave. The one with the lowest rating is given access) (Ali)
+
+Build a DB that can store all of the data that we need. Tables, rows, columns etc. (Angela)
+
+ Test the accuracy of physical things. Print blink when you blink, print out smile when you smile. Try to make the performance better/more accurate by taking a range of samples before printing things  (Jenny)
+
+
+
