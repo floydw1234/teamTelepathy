@@ -14,7 +14,8 @@ from __builtin__ import exit
 import MySQLdb
 db = MySQLdb.connect(host = "127.0.0.1",user="gallery",passwd="eecs118",db="eeg_db")
 cur = db.cursor()
-#cur.execute("INSERT IGNORE INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma) VALUES (1,2,3,4,5,6)")
+#a = 1
+#cur.execute("INSERT IGNORE INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s)",(a,a,a,a,a,a))
 #db.commit()
 #print "finish"
 
@@ -89,7 +90,10 @@ f = file('raw_eeg.csv', 'w')
 f = open('raw_eeg.csv', 'w')
 print >> f, "time, theta, alpha, low_beta, high_beta, gamma,\n",
 tempTime = round(time.time()*1000)
-while (1):
+print tempTime
+measureTime = 0
+firsttimeflag=0
+while (measureTime <= 60000):
     state = libEDK.IEE_EngineGetNextEvent(eEvent)
     
     if state == 0:
@@ -106,22 +110,36 @@ while (1):
                 result = libEDK.IEE_GetAverageBandPowers(userID, i, theta, alpha, low_beta, high_beta, gamma)
                 
                 if result == 0:    #EDK_OK
-                	cur.execute("insert into eeg_raw (time, theta, alpha, low_beta, high_beta, gamma) values(%s,%s,%s,%s,%s,%s)",(round(time.time()*1000) - tempTime, thetaValue.value, alphaValue.value,low_betaValue.value, high_betaValue.value, gammaValue.value))
-                	print >> f, round(time.time()*1000) - tempTime,', ',
-                	print >> f, thetaValue.value,', ',
-                	print >> f, alphaValue.value, ', ',
-                	print >> f, low_betaValue.value, ', ',
-                	print >> f, high_betaValue.value, ', ',
-                	print >> f, gammaValue.value, ', \n',
+                    
+                    if firsttimeflag==0:
+                        firsttimeflag=1
+                        tempTime = round(time.time()*1000)
+                        print tempTime
+                    timeDB = round(time.time()*1000) - tempTime
+                    thetaDB = thetaValue.value
+                    alphaDB = alphaValue.value
+                    low_betaDB = low_betaValue.value
+                    high_betaDB = high_betaValue.value
+                    gammaDB = gammaValue.value
+                    testPerson = "Angela"
+                    cur.execute("INSERT IGNORE INTO eeg_raw (person, time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s,%s)",(testPerson,timeDB, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB))
+                    db.commit()
+                    print >> f, round(time.time()*1000) - tempTime,', ',
+                    print >> f, thetaValue.value,', ',
+                    print >> f, alphaValue.value, ', ',
+                    print >> f, low_betaValue.value, ', ',
+                    print >> f, high_betaValue.value, ', ',
+                    print >> f, gammaValue.value, ', \n',
                     #print "%.6f, %.6f, %.6f, %.6f, %.6f \n" % (thetaValue.value, alphaValue.value, 
                      #                                          low_betaValue.value, high_betaValue.value, gammaValue.value)
                  
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(0.1)
+    measureTime = round(time.time()*1000) - tempTime
 # -------------------------------------------------------------------------
 libEDK.IEE_EngineDisconnect()
 libEDK.IEE_EmoStateFree(eState)
 libEDK.IEE_EmoEngineEventFree(eEvent)
-db.commit()
+
 db.close()
