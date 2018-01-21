@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from ttk import Frame, Button, Style
 import time
 
-class window():
+class Window():
 	def __init__(self, imageFile1, imageFile2, **kwargs):
 		
 		
