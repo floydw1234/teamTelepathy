@@ -7,7 +7,7 @@ from ttk import Frame, Button, Style
 import time
 
 class Window():
-	def __init__(self, imageFile1, imageFile2, **kwargs):
+	def __init__(self, imageFile1, imageFile2, callBack, **kwargs):
 		
 		
 		self.root = tk.Tk()
@@ -38,6 +38,7 @@ class Window():
 		self.panel1.pack(side = tk.TOP, fill = tk.BOTH, expand = tk.YES)
 		print "Display image1"
 		self.root.after(3000, self.update_image)
+		self.root.after(3000, callBack)
 		self.root.after(6000, self.update_image)
 		self.root.mainloop()
 
