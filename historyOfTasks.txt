@@ -7,7 +7,7 @@ Build a very simple model that compares the samples with each other and sums the
 
 Build a DB that can store all of the data that we need. Tables, rows, columns etc. (Angela)
 
- Test the accuracy of physical things. Print blink when you blink, print out smile when you smile. Try to make the performance better/more accurate by taking a range of samples before printing things  (Jenny)
+ Test the accuracy of physical things. Print blink when you blink, print out smile when you smile. Try to make the performance better/more accurate by taking a range of samples before printing things  (on the raspberry pi and/or computer)  (Jenny)
 
 
 Tasks for the week
