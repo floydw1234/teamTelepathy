@@ -38,8 +38,7 @@ class Window():
 		self.panel1.pack(side = tk.TOP, fill = tk.BOTH, expand = tk.YES)
 		print "Display image1"
 		self.root.after(3000, self.update_image)
-		self.root.after(3000, callBack)
-		self.root.after(6000, self.update_image)
+		self.root.after(3050, callBack)
 		self.root.mainloop()
 
 	
