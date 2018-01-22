@@ -39,6 +39,7 @@ class Window():
 		print "Display image1"
 		self.root.after(3000, self.update_image)
 		self.root.after(3100, callBack)
+
 		self.root.mainloop()
 
 	
