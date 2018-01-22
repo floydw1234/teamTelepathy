@@ -10,4 +10,15 @@ Build a DB that can store all of the data that we need. Tables, rows, columns et
  Test the accuracy of physical things. Print blink when you blink, print out smile when you smile. Try to make the performance better/more accurate by taking a range of samples before printing things  (Jenny)
 
 
+Tasks for the week
+William:
+Integrate the Headset file with the slideshow to make one program that shows an image and stores the EEG data from the program into mysql
+Xiaoyan
+Try to get the headset/sdk working on the raspberry pi
+Jingwei
+Research and try to implement live graphing from the python file that you have
+Ali
+Try testing your model(plus one where you compare averages) with the 2 sets of data that we got on Sunday. See if you can make a script that predicts which user it is
+
+
 
