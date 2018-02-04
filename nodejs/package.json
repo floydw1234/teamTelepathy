@@ -1,0 +1,35 @@
+{
+  "name": "telepathy",
+  "version": "1.0.0",
+  "description": "Capturing brain waves for training data",
+  "main": "app.js",
+  "scripts": {
+    "test": "run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/floydw1234/teamTelepathy.git"
+  },
+  "keywords": [
+    "brain",
+    "eeg"
+  ],
+  "author": "team telepathy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/floydw1234/teamTelepathy/issues"
+  },
+  "homepage": "https://github.com/floydw1234/teamTelepathy#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.14.12",
+    "path": "^0.12.7",
+    "python-shell": "^0.4.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "serve-favicon": "^2.4.5"
+  }
+}

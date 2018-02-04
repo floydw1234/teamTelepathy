@@ -14,8 +14,8 @@ from __builtin__ import exit
 
 def captureStoreData(inputArray,testPerson):
 	secondCallFlag = 0
-	if len(inputArray) > 0:
-		secondCallFlag = 1
+	#if len(inputArray) > 0:
+		#secondCallFlag = 1
 
 	#connect MySQL
 	
@@ -43,7 +43,7 @@ def captureStoreData(inputArray,testPerson):
 		        libPath = srcDir + "/../../bin/armhf/libedk.so"
 		else:
 		        libPath = srcDir + "/../../bin/linux64/libedk.so"
-		    libEDK = CDLL(libPath)
+		    	libEDK = CDLL(libPath)
 		else:
 		    raise Exception('System not supported.')
 	except Exception as e:
@@ -105,18 +105,6 @@ def captureStoreData(inputArray,testPerson):
 
 	if secondCallFlag == 0:
 		results = []
-
-		alpha1 = [] #0
-		theta1 = [] #1
-		low_beta1 = [] #2
-		high_beta1 = [] #3
-		gamma1 = [] # 4
-		
-		results.append(alpha1)
-		results.append(theta1)
-		results.append(low_beta1)
-		results.append(high_beta1)
-		results.append(gamma1)
 		
 	else:
 		results = inputArray
@@ -150,6 +138,15 @@ def captureStoreData(inputArray,testPerson):
 		                low_betaDB = low_betaValue.value
 		                high_betaDB = high_betaValue.value
 		                gammaDB = gammaValue.value
+
+						interumResult = {}
+						interumResult.theta = thetaDB
+						interumResult.alpha = alphaDB
+						interumResult.beta_low = low_betaDB
+						interumResult.beta_high = high_betaDB
+						interumResult.gamma = gammaDB
+
+						results.append(interumResult)
 		                
 		                #print "%.6f, %.6f, %.6f, %.6f, %.6f \n" % (thetaValue.value, alphaValue.value, 
 		                 #                                          low_betaValue.value, high_betaValue.value, gammaValue.value)
@@ -163,21 +160,22 @@ def captureStoreData(inputArray,testPerson):
 	f = open('raw_eeg.csv', 'w')
 
 
-	if secondCallFlag == 1:
-		print >> f, "time, theta, alpha, low_beta, high_beta, gamma,\n",
-		for waveType in result:
-			for sample in wavetype:
-				cur.execute("INSERT IGNORE INTO eeg_raw (person, time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s,%s)",(testPerson,timeDB, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB))
-				db.commit()
-				print >> f, round(time.time()*1000) - tempTime,', ',
-				print >> f, thetaValue.value,', ',
-				print >> f, alphaValue.value, ', ',
-				print >> f, low_betaValue.value, ', ',
-				print >> f, high_betaValue.value, ', ',
-				print >> f, gammaValue.value, ', \n',
+	#if secondCallFlag == 1:
+	print >> f, "time, theta, alpha, low_beta, high_beta, gamma,\n",
+	
+	for i in range(0,5): # for each type of wave
+		for sample in wavetype:
+			cur.execute("INSERT IGNORE INTO eeg_raw (person, time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s,%s)",(testPerson,timeDB, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB))
+			db.commit()
+			print >> f, round(time.time()*1000) - tempTime,', ',
+			print >> f, thetaValue.value,', ',
+			print >> f, alphaValue.value, ', ',
+			print >> f, low_betaValue.value, ', ',
+			print >> f, high_betaValue.value, ', ',
+			print >> f, gammaValue.value, ', \n',
 
-		libEDK.IEE_EngineDisconnect()
-		libEDK.IEE_EmoStateFree(eState)
-		libEDK.IEE_EmoEngineEventFree(eEvent)
+	libEDK.IEE_EngineDisconnect()
+	libEDK.IEE_EmoStateFree(eState)
+	libEDK.IEE_EmoEngineEventFree(eEvent)
 
-		db.close()
+	db.close()
