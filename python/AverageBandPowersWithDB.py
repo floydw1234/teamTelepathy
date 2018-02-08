@@ -5,7 +5,7 @@ import time
 import ctypes
 import csv
 import time
-import MySQLdb
+#import MySQLdb
 
 from array import *
 from ctypes import *
@@ -19,8 +19,8 @@ def captureStoreData(inputArray,testPerson):
 
 	#connect MySQL
 	
-	db = MySQLdb.connect(host = "127.0.0.1",user="gallery",passwd="eecs118",db="eeg_db")
-	cur = db.cursor()
+	#db = MySQLdb.connect(host = "127.0.0.1",user="gallery",passwd="eecs118",db="eeg_db")
+	#cur = db.cursor()
 	#a = 1
 	#cur.execute("INSERT IGNORE INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s)",(a,a,a,a,a,a))
 	#db.commit()
@@ -44,8 +44,6 @@ def captureStoreData(inputArray,testPerson):
 		else:
 		        libPath = srcDir + "/../../bin/linux64/libedk.so"
 		    	libEDK = CDLL(libPath)
-		else:
-		    raise Exception('System not supported.')
 	except Exception as e:
 		print 'Error: cannot load EDK lib:', e
 		exit()
@@ -128,16 +126,16 @@ def captureStoreData(inputArray,testPerson):
 		            
 		            if result == 0:    #EDK_OK
 		                
-		                if firsttimeflag==0:
-		                    firsttimeflag=1
-		                    tempTime = round(time.time()*1000)
-		                    print tempTime
-		                timeDB = round(time.time()*1000) - tempTime
-		                thetaDB = thetaValue.value
-		                alphaDB = alphaValue.value
-		                low_betaDB = low_betaValue.value
-		                high_betaDB = high_betaValue.value
-		                gammaDB = gammaValue.value
+						if firsttimeflag==0:
+							firsttimeflag=1
+							tempTime = round(time.time()*1000)
+							print tempTime
+						timeDB = round(time.time()*1000) - tempTime
+						thetaDB = thetaValue.value
+						alphaDB = alphaValue.value
+						low_betaDB = low_betaValue.value
+						high_betaDB = high_betaValue.value
+						gammaDB = gammaValue.value
 
 						interumResult = {}
 						interumResult.theta = thetaDB
@@ -165,8 +163,8 @@ def captureStoreData(inputArray,testPerson):
 	
 	for i in range(0,5): # for each type of wave
 		for sample in wavetype:
-			cur.execute("INSERT IGNORE INTO eeg_raw (person, time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s,%s)",(testPerson,timeDB, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB))
-			db.commit()
+			#cur.execute("INSERT IGNORE INTO eeg_raw (person, time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s,%s)",(testPerson,timeDB, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB))
+			#db.commit()
 			print >> f, round(time.time()*1000) - tempTime,', ',
 			print >> f, thetaValue.value,', ',
 			print >> f, alphaValue.value, ', ',
