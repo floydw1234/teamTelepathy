@@ -62,7 +62,7 @@ app.post("/dataCapture",function(req,res){
     var options = {
       args: [req.body.user]
     };
-    PythonShell.run('py/testImport.py',options, function (err) {
+    PythonShell.run('py/test.py',options, function (err) {
   		if (err) throw err;
 	});
 
