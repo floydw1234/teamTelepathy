@@ -30,13 +30,13 @@ from ctypes import *
 
 try:
     if sys.platform.startswith('win32'):
-        libEDK = cdll.LoadLibrary("../comSDK/bin/win32/edk.dll")
+        libEDK = cdll.LoadLibrary("/../community-sdk/bin/win32/edk.dll")
     elif sys.platform.startswith('linux'):
         srcDir = os.getcwd()
 	if platform.machine().startswith('arm'):
-            libPath = srcDir + "/../../comSDK/bin/armhf/libedk.so"
+            libPath = srcDir + "/../community-sdk/bin/armhf/libedk.so"
 	else:
-            libPath = srcDir + "/../../comSDK/bin/linux64/libedk.so"
+            libPath = srcDir + "/../community-sdk/bin/linux64/libedk.so"
         libEDK = CDLL(libPath)
     else:
         raise Exception('System not supported.')
