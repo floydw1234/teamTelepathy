@@ -30,7 +30,7 @@ from ctypes import *
 
 try:
     if sys.platform.startswith('win32'):
-        libEDK = cdll.LoadLibrary("/../community-sdk/bin/win32/edk.dll")
+        libEDK = cdll.LoadLibrary("edk.dll")
     elif sys.platform.startswith('linux'):
         srcDir = os.getcwd()
 	if platform.machine().startswith('arm'):
@@ -99,10 +99,9 @@ f = file(path, 'w')
 f = open(path, 'w')
 print >> f, "time, theta, alpha, low_beta, high_beta, gamma,\n",
 tempTime = round(time.time()*1000)
-print tempTime
 measureTime = 0
 firsttimeflag=0
-while (measureTime <= 2500):
+while (measureTime <= 25000):
     state = libEDK.IEE_EngineGetNextEvent(eEvent)
 
     if state == 0:
@@ -130,7 +129,7 @@ while (measureTime <= 2500):
                     low_betaDB = low_betaValue.value
                     high_betaDB = high_betaValue.value
                     gammaDB = gammaValue.value
-                    testPerson = "Angela"
+                    testPerson = sys.argv[1]
                     #cur.execute("INSERT IGNORE INTO eeg_raw (person, time, theta, alpha, low_beta, high_beta, gamma) VALUES (%s,%s,%s,%s,%s,%s,%s)",(testPerson,timeDB, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB))
                     #db.commit()
                     print >> f, round(time.time()*1000) - tempTime,', ',
