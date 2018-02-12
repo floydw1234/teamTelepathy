@@ -30,6 +30,10 @@ app.get("/", function(req,res){
 	res.sendfile('public/index.html');
 });
 
+app.get("/game", function(req,res){
+	res.sendfile('public/game.html');
+});
+
 
 app.get("/averages", function(req,res){
 	var array = [];
