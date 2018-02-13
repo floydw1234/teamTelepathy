@@ -64,6 +64,18 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 			$scope.switchPicture("url(black.jpeg)");
 	},10000);
 
+	/*\
+	httpget = function(callback){
+	do the request. then{
+	when it is ready{
+		callback(data);
+}
+	}
+
+}
+
+	*/
+
 	$scope.getUsers = function(){
 	    $http.get('/userList')
 		.success(function(data){

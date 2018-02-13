@@ -101,7 +101,7 @@ print >> f, "time, theta, alpha, low_beta, high_beta, gamma,\n",
 tempTime = round(time.time()*1000)
 measureTime = 0
 firsttimeflag=0
-while (measureTime <= 25000):
+while (measureTime <= 20000):
     state = libEDK.IEE_EngineGetNextEvent(eEvent)
 
     if state == 0:
