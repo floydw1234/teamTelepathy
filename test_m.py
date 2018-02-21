@@ -1,6 +1,6 @@
 from model import *
 import csv
-path='/home/mrhaboon/teamTelepathy/test_graphs/'
+path='/home/ali/telep/test_graphs/dont_use/'
 
 
 
