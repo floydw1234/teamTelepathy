@@ -20,7 +20,7 @@ listofusers=[ali,jenny,angela,will]
 
 test=open_csv('Ali_2_raw_eeg.csv')
 
-tmp_rating=500
+tmp_rating=20*10^20
 index=0
 
 for i in listofusers:
