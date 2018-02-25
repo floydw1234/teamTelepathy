@@ -1,6 +1,6 @@
 from model import *
 import csv
-path="/home/ali/telep/test_graphs"
+path="C:\\Users\\mrhaboon\\Desktop\\seniorproject\\test_graphs\\"
 
 datab=[[],[],[],[]]
 datab1=[[],[],[],[]]
@@ -16,10 +16,10 @@ def open_csv(in_csv):
 	return user
 
 for i in range(3):
-	datab[0].append(open_csv('raw_eegAli-'+i+'.csv'))
-	datab[1].append(open_csv('raw_eegJingwei-'+i+'.csv'))
-	datab[2].append(open_csv('raw_eegXiaoyan-'+i+'.csv'))
-	datab[3].append(open_csv('raw_eegWilliam-'+i+'.csv'))
+	datab[0].append(open_csv('raw_eegAli-'+str(i)+'.csv'))
+	datab[1].append(open_csv('raw_eegJingwei-'+str(i)+'.csv'))
+	datab[2].append(open_csv('raw_eegXiaoyan-'+str(i)+'.csv'))
+	datab[3].append(open_csv('raw_eegWilliam-'+str(i)+'.csv'))
 
 for i in range(4):
 	for x in range(3):
@@ -31,9 +31,9 @@ def find_rating(ind,averages):
 		tmp1=difference_rating(ind,i)
 		if(abs(tmp_rating)>abs(tmp1)):
 			tmp_rating=tmp1
-	return tmp_rating					
+	return tmp_rating
 
-		
+
 
 
 
@@ -48,33 +48,47 @@ def threshold(full):
 
 
 def av_of_all(full):
-	avgs=[[],[],[],[]]
+	avgs=[]
 	for i in range(4):
-		if(len(full[i][0][0])<len(full[i][1][0])&&<len(full[i][2][0])):
-			avgs[i].append(full[i][0][0])	
-		elif(len(full[i][1][0])<len(full[i][2][0])):
-			avgs[i].append(full[i][1][0])	
-		else:
-			avgs[i].append(full[i][2][0])	
+		avgs[i].append(full[i][time_index(full[i])][0])
 	for i in range(4):
-		avgs[i].append(av_of_waves([]))
-
+		avgs[i].append(av_of_waves(full[i]))
 	return avgs
-		
 
 
 
-def av_of_waves(wave):
-	time=len(wave[0])-1
-	agg_wave=[wave[0][0],[]]
-	for i in range(3):
-		if time>len(wave[i])-1:
-			time=len(wave[i])-1
+
+def least_time(trials):
+	time=len(trials[0][0])-1
+	for i in trials:
+		if time>len(i[0])-1:
+			time=len(i[0])-1
+	return time
+
+def time_index(trials):
+	index=0
+	time=len(trials[0][0])-1
+	for i in range(len(trials)):
+		if time>len(i[0])-1:
+			time=len(i[0])-1
+			index=i
+	return index
+
+
+
+
+
+
+def av_of_waves(trials):
+	avg_trials=[["theta"],["alpha"],["low_beta"],["high_beta"],["gamma"]]
+
+	return avg_trials
+
+
+
+
+def indiv_wave(time, wave):
+	wave1=[]
 	for i in range(time):
-		agg_wave[1].append((float(wave[0][time+1])+float(wave[1][time+1])+float(wave[2][time+1]))/3)
-	return agg_wave
-		
-
-	
-
-	
+		wave1.append((float(wave[0][time)+float(wave[1][time])+float(wave[2][time]))/3)
+	return wave1
