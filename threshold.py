@@ -49,13 +49,19 @@ def threshold(full):
 
 def av_of_all(full):
 	avgs=[[],[],[],[]]
-	for i in :
-		
-	for i in full:
-		for x in range(3):
+	for i in range(4):
+		if(len(full[i][0][0])<len(full[i][1][0])&&<len(full[i][2][0])):
+			avgs[i].append(full[i][0][0])	
+		elif(len(full[i][1][0])<len(full[i][2][0])):
+			avgs[i].append(full[i][1][0])	
+		else:
+			avgs[i].append(full[i][2][0])	
+	for i in range(4):
+		avgs[i].append(av_of_waves([]))
 
 	return avgs
 		
+
 
 
 def av_of_waves(wave):
