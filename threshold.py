@@ -1,6 +1,8 @@
 from model import *
 import csv
-path="C:\\Users\\mrhaboon\\Desktop\\seniorproject\\test_graphs\\"
+path="/home/ali/telep/test_graphs/"
+#make a function for average given the database is the previous avg and new input
+#avg keys will be 350-500 input will be full
 
 datab=[[],[],[],[]]
 datab1=[[],[],[],[]]
@@ -26,33 +28,14 @@ for i in range(4):
 		datab1[i].append(m_inv(datab[i][x]))
 
 
-def find_rating(ind,averages):
-	for i in averages:
-		tmp1=difference_rating(ind,i)
-		if(abs(tmp_rating)>abs(tmp1)):
-			tmp_rating=tmp1
-	return tmp_rating
-
-
-
-
-
-def threshold(full):
-	threshd=0
-	for person in full:
-		for t in person:
-			tmp=find_rating(t,average_of_e)
-			if threshd<tmp:
-				threshd=tmp
-	return threshd
-
+	
 
 def av_of_all(full):
-	avgs=[]
+	avgs=[[],[],[],[]]
 	for i in range(4):
 		avgs[i].append(full[i][time_index(full[i])][0])
 	for i in range(4):
-		avgs[i].append(av_of_waves(full[i]))
+		avgs[i].extend(av_of_waves(full[i]))
 	return avgs
 
 
@@ -69,8 +52,8 @@ def time_index(trials):
 	index=0
 	time=len(trials[0][0])-1
 	for i in range(len(trials)):
-		if time>len(i[0])-1:
-			time=len(i[0])-1
+		if time>len(trials[i][0])-1:
+			time=len(trials[i][0])-1
 			index=i
 	return index
 
@@ -81,7 +64,14 @@ def time_index(trials):
 
 def av_of_waves(trials):
 	avg_trials=[["theta"],["alpha"],["low_beta"],["high_beta"],["gamma"]]
-
+	time=least_time(trials)
+	for i in range(5):
+		tmp=[]
+		for x in range(len(trials)):
+			tmp.append(trials[x][i])
+		print(len(tmp[0]))
+		avg_trials[i].extend(indiv_wave(time,tmp))
+		
 	return avg_trials
 
 
@@ -90,5 +80,29 @@ def av_of_waves(trials):
 def indiv_wave(time, wave):
 	wave1=[]
 	for i in range(time):
-		wave1.append((float(wave[0][time)+float(wave[1][time])+float(wave[2][time]))/3)
+		wave1.append((float(wave[0][time])+float(wave[1][time])+float(wave[2][time]))/3)
 	return wave1
+
+
+final_result=av_of_all(datab1)
+
+print(final_result[0][3][0])
+
+with open('persons.csv', 'wb') as csvfile:
+	filewriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+	filewriter.writerow(final_result[0][0])
+	filewriter.writerow(final_result[0][1])	
+	filewriter.writerow(final_result[0][2])
+	filewriter.writerow(final_result[0][3])
+	filewriter.writerow(final_result[0][4])
+	filewriter.writerow(final_result[0][5])
+
+	
+"""
+final_result1=[[],[],[],[]]
+
+for i in range(4):
+	for x in range(3):
+		final_result1[i].append(m_inv(final_result[i][x]))"""
+
+
