@@ -184,7 +184,7 @@ for row in data:
 		old_ave.append(row[0])
 
 new_ave=[]
-new_ave=new_avg(person, old_ave)
+new_ave=threshold.new_avg(person, old_ave)
 cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person, ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[0], new_ave[1], new_ave[2], new_ave[3], new_ave[4], new_ave[5],new_ave[6],new_ave[7]))
 
 # -------------------------------------------------------------------------
