@@ -27,7 +27,12 @@ app.set('view engine', 'jade');
 
 // error handler
 app.get("/", function(req,res){
-	res.sendfile('public/index.html');
+	res.sendfile('public/recognise.html');
+});
+
+
+app.get("/training", function(req,res){
+	res.sendfile('public/training.html');
 });
 
 app.get("/game", function(req,res){
@@ -59,6 +64,14 @@ app.get("/allValues", function(req,res){
 			});
 			res.send(array);
 		});
+});
+
+
+app.post("/recognisePerson",function(req,res){
+    PythonShell.run('py/test.py',function (err,results) {
+  		if (err) throw err;
+		res.send({person: results});
+	});
 });
 
 
