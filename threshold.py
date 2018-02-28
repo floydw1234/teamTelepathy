@@ -1,6 +1,7 @@
 from model import *
 import csv
-path="/home/ali/telep/test_graphs/"
+#path="/home/ali/telep/test_graphs/"
+path="C:\\Users\\mrhaboon\\Desktop\\seniorproject\\test_graphs\\"
 #make a function for average given the database is the previous avg and new input
 #avg keys will be 350-500 input will be full
 
@@ -28,7 +29,7 @@ for i in range(4):
 		datab1[i].append(m_inv(datab[i][x]))
 
 
-	
+
 
 def av_of_all(full):
 	avgs=[[],[],[],[]]
@@ -68,10 +69,9 @@ def av_of_waves(trials):
 	for i in range(5):
 		tmp=[]
 		for x in range(len(trials)):
-			tmp.append(trials[x][i])
-		print(len(tmp[0]))
+			tmp.append(trials[x][i+1])
 		avg_trials[i].extend(indiv_wave(time,tmp))
-		
+
 	return avg_trials
 
 
@@ -80,25 +80,30 @@ def av_of_waves(trials):
 def indiv_wave(time, wave):
 	wave1=[]
 	for i in range(time):
-		wave1.append((float(wave[0][time])+float(wave[1][time])+float(wave[2][time]))/3)
+		wave1.append((float(wave[0][i+1])+float(wave[1][i+1])+float(wave[2][i+1]))/3)
 	return wave1
 
 
 final_result=av_of_all(datab1)
-
-print(final_result[0][3][0])
+final_result1=re_inv(final_result[1])
 
 with open('persons.csv', 'wb') as csvfile:
 	filewriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
-	filewriter.writerow(final_result[0][0])
-	filewriter.writerow(final_result[0][1])	
-	filewriter.writerow(final_result[0][2])
-	filewriter.writerow(final_result[0][3])
-	filewriter.writerow(final_result[0][4])
-	filewriter.writerow(final_result[0][5])
+	filewriter.writerow(final_result[1][0])
+	filewriter.writerow(final_result[1][1])
+	filewriter.writerow(final_result[1][2])
+	filewriter.writerow(final_result[1][3])
+	filewriter.writerow(final_result[1][4])
+	filewriter.writerow(final_result[1][5])
 
-	
+with open('persons1.csv', 'wb') as csvfile:
+	filewriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+	for i in final_result1:
+		filewriter.writerow(i)
+
 """
+
+
 final_result1=[[],[],[],[]]
 
 for i in range(4):
@@ -106,3 +111,32 @@ for i in range(4):
 		final_result1[i].append(m_inv(final_result[i][x]))"""
 
 
+
+
+
+
+
+
+
+
+def new_avg(new, avg_key):
+	weight=avg_key[6][1]
+	for i in range(150):
+		avg_key[6][1+i]=weight+1
+	result=[avg_key[0],["theta"],["alpha"],["low_beta"],["high_beta"],["gamma"],avg_key[6],avg_key[7]]
+	adj_new=m_inv1(new)
+	for i in range(5):
+		result[i+1].extend(avg_wave(adj_new[i+1][350:500],avg_key[i+1],weight))
+	return result
+
+
+
+
+
+
+
+def avg_wave(wn,ww,weight):
+	result=[]
+	for i in range(150):
+		result.append((wn+ww*weight)/2)
+	return result
