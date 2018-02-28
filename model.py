@@ -10,7 +10,7 @@ def difference_rating(infinger_print,passfinger_print):
 		time=time1
 	else:
 		time=time2
-	
+
 
 	rating=0
 
@@ -21,7 +21,7 @@ def difference_rating(infinger_print,passfinger_print):
 	for wave in range(5):
    		for t in range(time):
        			rating+=float(in_sorted[wave+1][t+1])-float(pass_sorted[wave+1][t+1])
-	
+
 	return rating
 
 
@@ -32,16 +32,60 @@ def avg_rating(infinger_print,passfinger_print):
 
 	in_sorted=m_inv(infinger_print)
 	pass_sorted=m_inv(passfinger_print)
-	
+
 	avg_in=avgof_mat(in_sorted)
 	avg_pass=avgof_mat(pass_sorted)
-	
+
 	rating=avg_in-avg_pass
-	
+
 	return rating
 
 
-    
+def m_inv1(in_mat):
+	time=[]
+	theta=[]
+	alpha=[]
+	low_beta=[]
+	high_beta=[]
+	gamma=[]
+	trials=[]
+	name=[]
+
+	for row in in_mat: #this is to change the input array from wave x time to time x wave
+		time.append(row[0])
+		theta.append(row[1])
+   	 	alpha.append(row[2])
+  	  	low_beta.append(row[3])
+  		high_beta.append(row[4])
+  		gamma.append(row[5])
+		trials.append(row[7])
+		name.append(row[7])
+
+	brainwave=[time,theta,alpha,low_beta,high_beta,gamma,trials,name]
+
+	return brainwave
+
+def re_inv1(in_mat):
+	mlen=len(in_mat[0])-1
+	result=[]
+	result.append(["time","theta","alpha","low_beta","high_beta","gamma","trials","name"])
+	for i in range(mlen):
+		tmp=[]
+		for x in range(8):
+			tmp.append(in_mat[x][i+1])
+		result.append(tmp)
+	return result
+
+def re_inv(in_mat):
+	mlen=len(in_mat[0])-1
+	result=[]
+	result.append(["time","theta","alpha","low_beta","high_beta","gamma"])
+	for i in range(mlen):
+		tmp=[]
+		for x in range(6):
+			tmp.append(in_mat[x][i+1])
+		result.append(tmp)
+	return result
 
 
 def m_inv(in_mat):
@@ -75,7 +119,7 @@ def avgof_mat(in_mat):
 		avg_in+=tmp
 
 	return avg_in
-    
+
 
 
 def find_rating(ind,averages):
@@ -97,4 +141,3 @@ def threshold(full):
 			if threshd<tmp:
 				threshd=tmp
 	return threshd
-
