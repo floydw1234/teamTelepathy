@@ -137,16 +137,15 @@ while (measureTime <= 20000):
                     low_betaDB = low_betaValue.value
                     high_betaDB = high_betaValue.value
                     gammaDB = gammaValue.value
-                    trainperson_theta_ave.append(thetaDB)
 
-                    cur.execute("select max(trail) from eeg_raw")
-                    cur.execute("INSERT INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma,trials, person, ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB,trailnumber,testPerson))
+                    print counter
+                    print trailnumber
+                    cur.execute("INSERT INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma,trials, person) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB,trailnumber,testPerson))
                     db.commit()
 
                     if trailnumber==1:
                         if (counter<500 and counter>=350):
-                            cur.execute("select max(trail) from eeg_raw")
-                            cur.execute("INSERT INTO eeg_avg (time, theta, alpha, low_beta, high_beta, gamma,trials, person, ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB,trailnumber,testPerson))
+                            cur.execute("INSERT INTO eeg_avg (time, theta, alpha, low_beta, high_beta, gamma,trials, person) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB,trailnumber,testPerson))
                             db.commit()
 
                     print >> f, round(time.time()*1000) - tempTime,', ',
@@ -155,43 +154,55 @@ while (measureTime <= 20000):
                     print >> f, low_betaValue.value, ', ',
                     print >> f, high_betaValue.value, ', ',
                     print >> f, gammaValue.value, ', \n',
+
+
                     counter=counter+1
                     #print "%.6f, %.6f, %.6f, %.6f, %.6f \n" % (thetaValue.value, alphaValue.value,
-                     #                                          low_betaValue.value, high_betaValue.value, gammaValue.value)
+                    #                                          low_betaValue.value, high_betaValue.value, gammaValue.value)
 
     elif state != 0x0600:
         print "Internal error in Emotiv Engine ! "
     time.sleep(0.1)
     measureTime = round(time.time()*1000) - tempTime
 
+if(trailnumber>1):
+    person=[]
+    cur.execute("select * from eeg_raw where person = %s and trials=%s",(testPerson,trailnumber,))
 
-person=[]
-cur.execute("select * from eeg_avg where person = %s and trials=%s",(testPerson,trailnumber,))
-db.commit()
+    data = cur.fetchall()
+    for row in data:
+            person.append(row)
 
-data = cur.fetchall()
-for row in data:
-	if not row[0]:
-		break
-	else:
-		person.append(row[0])
+    old_ave=[]
+    cur.execute("select * from eeg_avg where person = %s",(testPerson,))
+    data = cur.fetchall()
+    for row in data:
+            old_ave.append(row)
 
-old_ave=[]
-cur.execute("select * from eeg_avg where person = %s",(testPerson,))
-db.commit()
+    new_ave=[]
+    new_ave=threshold.new_avg(person, old_ave)
 
-data = cur.fetchall()
-for row in data:
-	if not row[0]:
-		break
-	else:
-		old_ave.append(row[0])
+    print new_ave
+    cur.execute("drop table if exists `eeg_avg`")
+    db.commit()
+    cur.execute("CREATE TABLE `eeg_avg` (\
+                `time` int(10) NOT NULL,\
+                `theta` float(10) DEFAULT NULL,\
+                `alpha` float(10) DEFAULT NULL,\
+                `low_beta` float(10) DEFAULT NULL,\
+                `high_beta` float(10) DEFAULT NULL,\
+                `gamma` float(10) DEFAULT NULL,\
+                `trials` int(5) not null,\
+                `person` char(20) not null\
+                )")
+    db.commit()
+    for i in range (150):
+        cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[i+1][0], new_ave[i+1][1], new_ave[i+1][2], new_ave[i+1][3], new_ave[1+i][4], new_ave[i+1][5],new_ave[i+1][6],new_ave[i+1][7]))
+        db.commit()
 
-new_ave=[]
-new_ave=threshold.new_avg(person, old_ave)
-cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person, ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[0], new_ave[1], new_ave[2], new_ave[3], new_ave[4], new_ave[5],new_ave[6],new_ave[7]))
-db.commit()
-
+#print person
+#print old_ave
+#print new_ave
 # -------------------------------------------------------------------------
 libEDK.IEE_EngineDisconnect()
 libEDK.IEE_EmoStateFree(eState)
