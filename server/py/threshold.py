@@ -62,7 +62,7 @@ def av_of_all(full1):
 	for i in range(dblen):
 		avgs[i].extend(av_of_waves(full[i]))
 		avgs[i].extend(get_tn(full[i]))
-	result=
+	#result=
 	for i in range(len(avgs)):
 		for x in range(8):
 			
