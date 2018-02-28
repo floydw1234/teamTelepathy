@@ -58,7 +58,7 @@ def m_inv1(in_mat):
   	  	low_beta.append(row[3])
   		high_beta.append(row[4])
   		gamma.append(row[5])
-		trials.append(row[7])
+		trials.append(row[6])
 		name.append(row[7])
 
 	brainwave=[time,theta,alpha,low_beta,high_beta,gamma,trials,name]
@@ -66,13 +66,13 @@ def m_inv1(in_mat):
 	return brainwave
 
 def re_inv1(in_mat):
-	mlen=len(in_mat[0])-1
+	mlen=len(in_mat[0])
 	result=[]
 	result.append(["time","theta","alpha","low_beta","high_beta","gamma","trials","name"])
 	for i in range(mlen):
 		tmp=[]
 		for x in range(8):
-			tmp.append(in_mat[x][i+1])
+			tmp.append(in_mat[x][i])
 		result.append(tmp)
 	return result
 

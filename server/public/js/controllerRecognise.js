@@ -15,7 +15,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
 
 
-    $scope.viewingPic = 0
+    $scope.viewingPic = 0;
 
 	$scope.buildCharts = function(){
 
@@ -39,7 +39,10 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
 	$scope.startCapture = function(){
         $scope.viewingPic = 1;
-		$http.post("/recognisePerson")
+        data = {
+            "user": "recognise"
+        };
+		$http.post("/recognisePerson",data)
 		.success(function(data){
 			console.log("Welcome " + data.person);
 		})

@@ -13,19 +13,34 @@ average_of_e=[]
 tmp_rating=20*10^20
 index=0
 
+<<<<<<< HEAD
+
 '''
+
+=======
+'''
+>>>>>>> 00532071a24db395e4a1b54771a41d7e8e5678b8
 def open_csv(in_csv):
 	with open(path+in_csv,"rb") as f:
     		reader = csv.reader(f)
 	    	user = list(reader)
 	return user
 
+
+
+
 for i in range(3):
 	datab[0].append(open_csv('raw_eegAli-'+str(i)+'.csv'))
 	datab[1].append(open_csv('raw_eegJingwei-'+str(i)+'.csv'))
 	datab[2].append(open_csv('raw_eegXiaoyan-'+str(i)+'.csv'))
 	datab[3].append(open_csv('raw_eegWilliam-'+str(i)+'.csv'))
+<<<<<<< HEAD
+
 '''
+
+=======
+'''
+>>>>>>> 00532071a24db395e4a1b54771a41d7e8e5678b8
 def transposewaves(full):
 	full1=[]
 	lent=0
@@ -50,8 +65,13 @@ def untransposewaves(full):
 			full1[i].append(re_inv1(full[i][x]))
 	return full1
 
+<<<<<<< HEAD
+'''
+
+=======
 
 '''
+>>>>>>> 00532071a24db395e4a1b54771a41d7e8e5678b8
 def av_of_all(full1):
 	full=transposewave(full1)
 	avgs=[]
@@ -66,15 +86,19 @@ def av_of_all(full1):
 	#result=
 	for i in range(len(avgs)):
 		for x in range(8):
-			
+
 	return untransposewaves(avgs)
 '''
+<<<<<<< HEAD
+
+=======
+>>>>>>> 00532071a24db395e4a1b54771a41d7e8e5678b8
 def get_tn(wave):
 	result=[[],[]]
 	result[0].extend(wave[-1][6])
 	result[1].extend(wave[-1][7])
 	return	result
-		
+
 
 
 def least_time(trials):

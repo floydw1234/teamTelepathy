@@ -13,6 +13,8 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 	$scope.test1 = [];
 	$scope.data = [];
 
+	$scope.viewingPic = 0;
+
 	$scope.buildCharts = function(){
 
 		var promises = [];
@@ -34,6 +36,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
 
 	$scope.startCapture = function(){
+		$scope.viewingPic = 1;
 		if($scope.currentUser != ''){
 			console.log("asdf");
 			var data = {

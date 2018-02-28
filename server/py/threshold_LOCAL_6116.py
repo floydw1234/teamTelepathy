@@ -13,19 +13,26 @@ average_of_e=[]
 tmp_rating=20*10^20
 index=0
 
+
 '''
+
 def open_csv(in_csv):
 	with open(path+in_csv,"rb") as f:
     		reader = csv.reader(f)
 	    	user = list(reader)
 	return user
 
+
+
+
 for i in range(3):
 	datab[0].append(open_csv('raw_eegAli-'+str(i)+'.csv'))
 	datab[1].append(open_csv('raw_eegJingwei-'+str(i)+'.csv'))
 	datab[2].append(open_csv('raw_eegXiaoyan-'+str(i)+'.csv'))
 	datab[3].append(open_csv('raw_eegWilliam-'+str(i)+'.csv'))
+
 '''
+
 def transposewaves(full):
 	full1=[]
 	lent=0
@@ -50,8 +57,8 @@ def untransposewaves(full):
 			full1[i].append(re_inv1(full[i][x]))
 	return full1
 
-
 '''
+
 def av_of_all(full1):
 	full=transposewave(full1)
 	avgs=[]
@@ -66,15 +73,16 @@ def av_of_all(full1):
 	#result=
 	for i in range(len(avgs)):
 		for x in range(8):
-			
+
 	return untransposewaves(avgs)
 '''
+
 def get_tn(wave):
 	result=[[],[]]
 	result[0].extend(wave[-1][6])
 	result[1].extend(wave[-1][7])
 	return	result
-		
+
 
 
 def least_time(trials):
@@ -155,17 +163,15 @@ for i in range(4):
 
 
 def new_avg(new, avg_key1):
-
 	avg_key=m_inv1(avg_key1)
-	weight=float(int (avg_key[6][1]))
+	weight=avg_key[6][1]
 	for i in range(150):
-		avg_key[6][i]=weight+1
-	result=[avg_key[0],avg_key[1],avg_key[2],avg_key[3],avg_key[4],avg_key[5],avg_key[6],avg_key[7]]
+		avg_key[6][1+i]=weight+1
+	result=[avg_key[0],["theta"],["alpha"],["low_beta"],["high_beta"],["gamma"],avg_key[6],avg_key[7]]
 	adj_new=m_inv1(new)
-	
 	for i in range(5):
-		result[i+1]=avg_wave(adj_new[i+1][350:500],avg_key[i+1],weight)
-	result1=re_inv1(result)
+		result[i+1].extend(avg_wave(adj_new[i+1][350:500],avg_key[i+1],weight))
+	result1=re_inv1(in_mat)
 	return result1
 
 
@@ -177,5 +183,5 @@ def new_avg(new, avg_key1):
 def avg_wave(wn,ww,weight):
 	result=[]
 	for i in range(150):
-		result.append((int(wn[i])+int(ww[i])*weight)/(weight+1))
+		result.append((wn+ww*weight)/2)
 	return result

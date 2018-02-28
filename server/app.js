@@ -76,12 +76,16 @@ app.post("/recognisePerson",function(req,res){
 
 
 app.post("/dataCapture",function(req,res){
+
     var options = {
       args: [req.body.user]
     };
     PythonShell.run('py/test.py',options, function (err) {
   		if (err) throw err;
+		res.send("success!");
 	});
+
+
 
 });
 
