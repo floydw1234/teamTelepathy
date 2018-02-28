@@ -167,6 +167,8 @@ while (measureTime <= 20000):
 
 person=[]
 cur.execute("select * from eeg_avg where person = %s and trials=%s",(testPerson,trailnumber,))
+db.commit()
+
 data = cur.fetchall()
 for row in data:
 	if not row[0]:
@@ -176,6 +178,8 @@ for row in data:
 
 old_ave=[]
 cur.execute("select * from eeg_avg where person = %s",(testPerson,))
+db.commit()
+
 data = cur.fetchall()
 for row in data:
 	if not row[0]:
@@ -186,6 +190,7 @@ for row in data:
 new_ave=[]
 new_ave=threshold.new_avg(person, old_ave)
 cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person, ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[0], new_ave[1], new_ave[2], new_ave[3], new_ave[4], new_ave[5],new_ave[6],new_ave[7]))
+db.commit()
 
 # -------------------------------------------------------------------------
 libEDK.IEE_EngineDisconnect()
