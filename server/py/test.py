@@ -182,24 +182,19 @@ if(trailnumber>1):
     new_ave=[]
     new_ave=threshold.new_avg(person, old_ave)
 
-    print new_ave
-    cur.execute("drop table if exists `eeg_avg`")
-    db.commit()
-    cur.execute("CREATE TABLE `eeg_avg` (\
-                `time` int(10) NOT NULL,\
-                `theta` float(10) DEFAULT NULL,\
-                `alpha` float(10) DEFAULT NULL,\
-                `low_beta` float(10) DEFAULT NULL,\
-                `high_beta` float(10) DEFAULT NULL,\
-                `gamma` float(10) DEFAULT NULL,\
-                `trials` int(5) not null,\
-                `person` char(20) not null\
-                )")
-    db.commit()
-    for i in range (150):
-        cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[i+1][0], new_ave[i+1][1], new_ave[i+1][2], new_ave[i+1][3], new_ave[1+i][4], new_ave[i+1][5],new_ave[i+1][6],new_ave[i+1][7]))
+#    print new_ave
+    cur.execute("select * from eeg_avg where person = %s",(testPerson,))
+    per=cur.fetchall()
+    if per[0]:
+        cur.execute("delete from eeg_avg where person=%s",(testPerson,))
         db.commit()
-
+        for i in range (150):
+            cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[i+1][0], new_ave[i+1][1], new_ave[i+1][2], new_ave[i+1][3], new_ave[1+i][4], new_ave[i+1][5],new_ave[i+1][6],new_ave[i+1][7]))
+            db.commit()
+    else:
+        for i in range (150):
+            cur.execute("INSERT INTO eeg_avg(time, theta, alpha, low_beta, high_beta, gamma,trials, person ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(new_ave[i+1][0], new_ave[i+1][1], new_ave[i+1][2], new_ave[i+1][3], new_ave[1+i][4], new_ave[i+1][5],new_ave[i+1][6],new_ave[i+1][7]))
+            db.commit()
 #print person
 #print old_ave
 #print new_ave
@@ -208,7 +203,7 @@ libEDK.IEE_EngineDisconnect()
 libEDK.IEE_EmoStateFree(eState)
 libEDK.IEE_EmoEngineEventFree(eEvent)
 
-#db.close()
+db.close()
 
 '''
 f = open('E:/Study/community-sdk-master/examples_basic/Python/raw_eeg1.txt', 'w')
