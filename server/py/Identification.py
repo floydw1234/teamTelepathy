@@ -142,7 +142,7 @@ while (measureTime <= 200):
     if firsttimeflag==0:
         firsttimeflag=1
         tempTime = round(time.time()*1000)
-        print tempTime
+#        print tempTime
     timeDB = round(time.time()*1000) - tempTime
     #thetaDB = thetaValue.value
     #alphaDB = alphaValue.value
@@ -150,7 +150,7 @@ while (measureTime <= 200):
     #high_betaDB = high_betaValue.value
     #gammaDB = gammaValue.value
 
-    print counter
+#    print counter
    # print trailnumber
    # cur.execute("INSERT INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma,trials, person) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, thetaDB, alphaDB, low_betaDB, high_betaDB, gammaDB,trailnumber,testPerson))
    # db.commit()
@@ -202,7 +202,7 @@ testPersonRAW.append(low_betalist)
 testPersonRAW.append(high_betalist)
 testPersonRAW.append(gammalist)
 testPersonX = np.array(testPersonRAW).T
-print testPersonX.shape
+#print testPersonX.shape
 LENGTH = 150
 RESPONSE = 350
 trailnum = 1 #define how many trails you want to include
@@ -244,12 +244,12 @@ for k1 in allEEGDict.keys():
     '''
     for i in range(trailnum):
         data = allEEGDict[k1][i]
-        print data.shape
+        #print data.shape
         avg_eeg = np.asarray(testPersonX[350:500,:])
         result = cor.maxCorrelation(data,avg_eeg)
         message = "The correlation between "+ k1 + " and  new User for trial " + str(i+1) + " is: " + str(result)+"\n"
         ofile.write(message)
-
+print k1
 '''
 if(trailnumber>1):
     person=[]
