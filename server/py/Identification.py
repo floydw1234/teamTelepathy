@@ -17,6 +17,8 @@ from __builtin__ import exit
 
 #connect MySQL
 import MySQLdb
+
+
 db = MySQLdb.connect(host = "127.0.0.1",user="gallery",passwd="eecs118",db="eeg_db")
 cur = db.cursor()
 #a = 1
@@ -114,14 +116,14 @@ cur.execute("select max(trials) from eeg_raw where person = %s",(testPerson,))
 trailnumber = 0
 data = cur.fetchall()
 for row in data:
-	if not row[0]:
-		break
-	trailnumber = row[0]
+    if not row[0]:
+        break
+    trailnumber = row[0]
 trailnumber = trailnumber+1
 '''
 counter=0
 
-while (measureTime <= 200):
+while (measureTime <= 20000):
     '''
     state = libEDK.IEE_EngineGetNextEvent(eEvent)
 
@@ -202,7 +204,8 @@ testPersonRAW.append(alphalist)
 testPersonRAW.append(low_betalist)
 testPersonRAW.append(high_betalist)
 testPersonRAW.append(gammalist)
-testPersonX = np.array(testPersonRAW).T
+testPersonX = np.array(testPersonRAW)
+testPersonX = testPersonX[:,350:500].T
 #print testPersonX.shape
 LENGTH = 150
 RESPONSE = 350
@@ -246,7 +249,7 @@ for k1 in allEEGDict.keys():
     for i in range(trailnum):
         data = allEEGDict[k1][i]
         #print data.shape
-        avg_eeg = np.asarray(testPersonX[350:500,:])
+        avg_eeg = np.asarray(testPersonX)
         result = cor.maxCorrelation(data,avg_eeg)
         message = "The correlation between "+ k1 + " and  new User for trial " + str(i+1) + " is: " + str(result)+"\n"
         ofile.write(message)

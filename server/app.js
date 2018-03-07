@@ -7,6 +7,8 @@ var request = require("request-promise");
 var PythonShell = require('python-shell');
 var fs = require('fs');
 
+
+
 var result = "";
 
 
@@ -71,16 +73,15 @@ app.get("/allValues", function(req,res){
 
 app.post("/recognisePerson",function(req,res){
 	result = "";
-	PythonShell.run('py/Identification.py',function (err,results) {
-		if (err) throw err;
-	});
-	pyshell.on('message', function (message) {
-	// received a message sent from the Python script (a simple "print" statement)
-		//result = message;
-		res.send({person: message});
-		console.log(message);
-	}
-});
+var pyshell = new PythonShell("py/Identification.py");
+
+// sends a message to the Python script via stdin
+
+
+    pyshell.on('message', function (message) {
+      // received a message sent from the Python script (a simple "print" statement)
+      console.log(message);
+    });
 
 });
 
