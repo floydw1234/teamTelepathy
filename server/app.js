@@ -7,6 +7,8 @@ var request = require("request-promise");
 var PythonShell = require('python-shell');
 var fs = require('fs');
 
+var result = "";
+
 
 
 
@@ -68,10 +70,33 @@ app.get("/allValues", function(req,res){
 
 
 app.post("/recognisePerson",function(req,res){
-    PythonShell.run('py/test.py',function (err,results) {
-  		if (err) throw err;
-		res.send({person: results});
+	result = "";
+	PythonShell.run('py/recognize.py',function (err,results) {
+		if (err) throw err;
+
 	});
+	pyshell.on('message', function (message) {
+	// received a message sent from the Python script (a simple "print" statement)
+		//result = message;
+		console.log(message);
+	}
+});
+
+});
+
+app.get("/result",function(req,res){
+	/*
+	do{
+		if(result != ""){
+			res.send({person: result});
+		}
+	}while(result == "");
+	*/
+	console.log("started waiting");
+	setTimeout(function(){
+		res.send({person: "William"});
+		console.log("finished waiting");
+	},3000);
 });
 
 

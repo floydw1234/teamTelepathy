@@ -14,6 +14,8 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 	$scope.data = [];
 	var status = 0;
 
+    $scope.person = '';
+
 
 /*
 0 = starting
@@ -22,6 +24,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 3 = game
 */
     $scope.status  = {stat: 0};
+    console.log("asdf");
 
 
 	$scope.buildCharts = function(){
@@ -44,14 +47,8 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 	};
 
 
-	$scope.startCapture = function(){
-        $scope.status.stat = 1;
-		document.body.backgroundImage = "";
-		$scope.switchPicture(url);
-        data = {
-            "user": "recognise"
-        };
-		$http.post("/recognisePerson",data)
+	$scope.result = function(){
+		$http.get("/result")
 		.success(function(data){
 			console.log("Welcome " + data.person);
 			$scope.person = data.person;
@@ -59,51 +56,9 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 		.error(function(data,status,headers,config){
 			$scope.ResponseDetails = JSON.stringify({data: data});
 	    });
-
-
-	}
-	var url = "url(clown.jpg)"
-	$scope.switchPicture = function(url){
-		var doc = document.getElementById("image");
-		doc.style.backgroundImage = "url(black.jpg)";
-		setTimeout(function(){
-			doc.style.backgroundImage = url;
-			setTimeout(function(){
-					doc.style.backgroundImage = "";
-					$scope.status.stat = 2;
-					window.location = "/result.html";
-			},10000);
-		},10000);
 	}
 
+    $scope.result();
 
 
-    setInterval(function(){
-        console.log($scope.status.stat);
-    },2000);
-
-	/*\
-	httpget = function(callback){
-	do the request. then{
-	when it is ready{
-		callback(data);
-}
-	}
-
-}
-
-	*/
-
-	$scope.getUsers = function(){
-	    $http.get('/userList')
-		.success(function(data){
-			$scope.userList = data.users;
-	    })
-		.error(function(data,status,headers,config){
-			$scope.ResponseDetails = JSON.stringify({data: data});
-	    });
-	};
-	$scope.selectUser = function(user){
-		$scope.currentUser = user;
-	}
 }]);

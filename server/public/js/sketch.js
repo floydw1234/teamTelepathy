@@ -87,17 +87,14 @@ function draw() {
   }else{
     background(255);
     textSize(32);
-    text("Game Over. Press Enter to start again!", 10, 30);
-    text("your score was: " + parseInt(score), 10, 100);
-
-
+    text("Press Enter to start!", 10, 30);
   }
 }
 
 
 function detectCollision(i){
   //check lower corners
-  console.log(x);
+  //console.log(x);
   if(rectPosition.length != 0 && x){
     if(rectPosition[i][1] != 0){    // if it is not an upper pipe == (it is a lower pipe)
       var cornerLx = rectPosition[i][0];
@@ -125,18 +122,6 @@ function detectCollision(i){
         dead = 1;
         return;
       }
-
-
-
     }
-
-    /*
-
-    */
-
-
   }
-
-
-
 }
