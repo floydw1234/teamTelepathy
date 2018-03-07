@@ -3,8 +3,8 @@ import correlation as cor
 import MySQLdb 
 db = MySQLdb.connect(host = "127.0.0.1",user="gallery",passwd="eecs118",db="eeg_db")
 cur = db.cursor()
-LENGTH = 400
-RESPONSE = 200
+LENGTH = 150
+RESPONSE = 350
 trailnum = 2
 xiaoyanEEG = [] * trailnum
 xiaoyanRAW = [] * trailnum

@@ -74,10 +74,11 @@ theta     = pointer(thetaValue)
 channelList = array('I',[3, 7, 9, 12, 16])   # IED_AF3, IED_AF4, IED_T7, IED_T8, IED_Pz
 '''
 # -------------------------------------------------------------------------
-print "==================================================================="
-print "Example to get the average band power for a specific channel from" \
-" the latest epoch."
-print "==================================================================="
+#print "==================================================================="
+
+#print "Example to get the average band power for a specific channel from" \
+#" the latest epoch."
+#print "==================================================================="
 
 # -------------------------------------------------------------------------
 '''if libEDK.IEE_EngineConnect("Emotiv Systems-5") != 0:
