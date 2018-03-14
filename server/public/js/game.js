@@ -14,6 +14,7 @@ var rectPosition = [];
 
 function setup() {
   createCanvas(720, 400);
+  document.getElementsByTagName('canvas')[0].style = "position: fixed;" + "left: 30%;" + "top: 30%;";
   rectPosition = [];
   // Starts in the middle
   x = width/3;
@@ -87,7 +88,8 @@ function draw() {
   }else{
     background(255);
     textSize(32);
-    text("Press Enter to start!", 10, 30);
+    text("Game Over. Press Enter to start again!", 10, 30);
+    text("your score was: " + parseInt(score), 10, 100);
   }
 }
 

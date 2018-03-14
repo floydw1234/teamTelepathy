@@ -6,9 +6,22 @@
     Note: p5 libraries are here: https://cdnjs.com/libraries/p5.js
     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
-    <script src="js/sketch.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="js/game.js"></script>
   </head>
-  <body ng-app="myApp">
+  <style>
+  #back {
+      background-image : url("flappy.png");
+      background-size: 100% 100%;
+      position:absolute;
+      z-index:0;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+  }
+  </style>
+  <body ng-app="myApp" id="back" >
       <script type="text/javascript"src="js/result.js"></script>
      <div class="container" ng-controller="mainController">
     <h1>Flappy Bird!</h1>
