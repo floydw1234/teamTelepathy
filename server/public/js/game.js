@@ -13,7 +13,12 @@ var rectPosition = [];
 
 
 function setup() {
-  createCanvas(500, 400);
+    console.log(windowWidth);
+    console.log(windowHeight);
+    var w = windowWidth/2;
+    var h = windowHeight/2;
+
+  createCanvas(w, h);
   document.getElementsByTagName('canvas')[0].style = "position: fixed;" + "left: 20%;" + "top: 20%;";
   rectPosition = [];
   // Starts in the middle
@@ -58,14 +63,14 @@ function draw() {
 
     }
     //this checks if it is time for a new "pipe"
-    if(rectPosition[rectPosition.length - 1][0] < width- 300){
+    if(rectPosition[rectPosition.length - 1][0] < width- 400){
       var tempHeight = 200 + random(height/2);
-      rectPosition.push([700, tempHeight, height]);
+      rectPosition.push([width, tempHeight, height]);
       //rectPosition.push([700, 0, tempHeight - 75]);  //
 
     }
     //if the array is longer than the screen then shorten it
-    if(rectPosition.length > 6){//adjust this based on how big the screen is
+    if(rectPosition.length > 20){//adjust this based on how big the screen is
       rectPosition.splice(0,1);
     }
 
