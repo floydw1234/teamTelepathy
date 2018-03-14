@@ -13,8 +13,8 @@ var rectPosition = [];
 
 
 function setup() {
-  createCanvas(720, 400);
-  document.getElementsByTagName('canvas')[0].style = "position: fixed;" + "left: 30%;" + "top: 30%;";
+  createCanvas(500, 400);
+  document.getElementsByTagName('canvas')[0].style = "position: fixed;" + "left: 20%;" + "top: 20%;";
   rectPosition = [];
   // Starts in the middle
   x = width/3;
