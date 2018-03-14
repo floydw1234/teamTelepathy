@@ -173,21 +173,21 @@ while (measureTime <= 20000):
     high_betalist.append(counter)
     gammalist.append(counter)
 
-    '''
-    if trailnumber==1:
-        if (counter<500 and counter>=350):
-            cur.execute("INSERT INTO eeg_avg (time, theta, alpha, low_beta, high_beta, gamma,trials, person) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, 1, 1, 1, 1, 1,trailnumber,testPerson))
-            db.commit()
+
+    #if trailnumber==1:
+    #    if (counter<500 and counter>=350):
+    #        cur.execute("INSERT INTO eeg_avg (time, theta, alpha, low_beta, high_beta, gamma,trials, person) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, 1, 1, 1, 1, 1,trailnumber,testPerson))
+    #        db.commit()
             #cur.execute("INSERT INTO eeg_raw (time, theta, alpha, low_beta, high_beta, gamma,trials, person) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(counter, 1, 1, 1, 1, 1,trailnumber,testPerson))
             #db.commit()
-    '''        
-    '''print >> f, round(time.time()*1000) - tempTime,', ',
-    print >> f, thetaValue.value,', ',
-    print >> f, alphaValue.value, ', ',
-    print >> f, low_betaValue.value, ', ',
-    print >> f, high_betaValue.value, ', ',
-    print >> f, gammaValue.value, ', \n',
-'''
+
+    #print >> f, round(time.time()*1000) - tempTime,', ',
+    #print >> f, thetaValue.value,', ',
+    #print >> f, alphaValue.value, ', ',
+    #print >> f, low_betaValue.value, ', ',
+    #print >> f, high_betaValue.value, ', ',
+    #print >> f, gammaValue.value, ', \n',
+
 
     counter=counter+1
     #print "%.6f, %.6f, %.6f, %.6f, %.6f \n" % (thetaValue.value, alphaValue.value,
