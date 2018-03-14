@@ -16,7 +16,7 @@ def difference_rating(infinger_print,passfinger_print):
            for t in range(150): 
                    rating+=float(in_sorted[wave+1][350+1])-float(pass_sorted[wave+1][t+1]) 
  
-    return rating
+    return abs(rating)
 
 def avg_rating(infinger_print,passfinger_print):
 
