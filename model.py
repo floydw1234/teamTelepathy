@@ -1,29 +1,22 @@
 "change difference to correlation multiple alpha by 1.1"
 #threshold finalize
 
-def difference_rating(infinger_print,passfinger_print):
-	time1=len(infinger_print)-1
-	time2=len(passfinger_print)-1
-	time=0
-
-	if time1<time2:
-		time=time1
-	else:
-		time=time2
-
-
-	rating=0
-
-	in_sorted=m_inv(infinger_print)
-	pass_sorted=m_inv(passfinger_print)
-
-
-	for wave in range(5):
-   		for t in range(time):
-       			rating+=float(in_sorted[wave+1][t+1])-float(pass_sorted[wave+1][t+1])
-
-	return rating
-
+def difference_rating(infinger_print,passfinger_print): 
+ 
+ 
+ 
+ 
+    rating=0 
+ 
+    in_sorted=m_inv1(infinger_print) 
+    pass_sorted=m_inv1(passfinger_print) 
+ 
+ 
+    for wave in range(5): 
+           for t in range(150): 
+                   rating+=float(in_sorted[wave+1][350+1])-float(pass_sorted[wave+1][t+1]) 
+ 
+    return rating
 
 def avg_rating(infinger_print,passfinger_print):
 
