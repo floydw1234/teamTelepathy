@@ -1,21 +1,22 @@
 <!doctype html>
 <html>
-   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
-      <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
-      <!-- Include Date Range Picker -->
-      <title> Telepathy </title>
-   </head>
-	<style>
-    #image {
-        background-image : url("black.jpeg");
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <title> Telepathy </title>
+</head>
+<style>
+    #norm{
+        background-image : url("grey.jpg");
         background-size: 100% 100%;
         position:absolute;
         z-index:0;
@@ -24,30 +25,57 @@
         width:100%;
         height:100%;
     }
+    #box {
+        height: 4800px;
+        width: 640px;
 
-	</style>
-   <script type="text/javascript"src="js/controllerTraining.js"></script>
-   <body ng-app="myApp">
-      <div class="container" ng-controller="mainController">
-          <div ng-if="viewingPic == 0">
-         <h2>Team Telepathy Data Collection</h2>
-         <p>Press the button when you are ready to collect data</p>
-         <div class="dropdown">
-            <button class="button dropdown-toggle" type="button" data-toggle="dropdown" ng-click="getUsers()"> Select user: {{ currentUser }}
+
+        position: fixed;
+        top: 40%;
+        left: 40%;
+        margin-top: -100px;
+        margin-left: -200px;
+    }
+    #image {
+        background-image : url("black.jpg");
+        background-size: 100% 100%;
+        position:absolute;
+        z-index:0;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+    }
+</style>
+<script type="text/javascript" src="js/controllerTraining.js"></script>
+
+<body ng-app="myApp">
+    <div class="container" ng-controller="mainController">
+        <div id="norm" ng-if="viewingPic == 0">
+            <div id="box">
+                <center>
+                    <h2>Team Telepathy Data Collection</h2>
+                    <p>Press the button when you are ready to collect data</p>
+                    <div class="dropdown">
+                        <button class="button dropdown-toggle" type="button" data-toggle="dropdown" ng-click="getUsers()"> Select user: {{ currentUser }}
+
             <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-               <li><a ng-repeat="user in userList" ng-click="selectUser(user)">{{ user }}</a></li>
-            </ul>
-         </div>
-         <hr>
-            <button class="button" ng-click="startCapture()" > Start Brain Wave Trial!</button>
+                        <ul class="dropdown-menu">
+                            <li><a ng-repeat="user in userList" ng-click="selectUser(user)">{{ user }}</a></li>
+                        </ul>
+                    </div>
+                    <p  style="font-size: 12px">Support for new users coming soon! </p>
+                    <hr>
+                    <button class="button" ng-click="startCapture()"> Start Brain Wave Trial!</button>
+            </div>
+            <center>
 
-    </div>
-    <div ng-if="viewingPic == 1">
-        <div id="image"  class="container" ng-controller="mainController">
-    </div>
+        </div>
+        <div ng-if="viewingPic == 1">
+            <div id="image" class="container" ng-controller="mainController">
+            </div>
 
+        </div>
+</body>
 
-      </div>
-   </body>
 </html>

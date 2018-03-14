@@ -50,7 +50,6 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 	$scope.result = function(){
 		$http.get("/result")
 		.success(function(data){
-			console.log("Welcome " + data.person);
 			$scope.person = data.person;
 		})
 		.error(function(data,status,headers,config){

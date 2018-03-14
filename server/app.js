@@ -73,6 +73,7 @@ app.get("/allValues", function(req,res){
 
 app.post("/recognisePerson",function(req,res){
 	result = "";
+	/*
 	var pyshell = new PythonShell("py/Identification.py");
 
 // sends a message to the Python script via stdin
@@ -82,17 +83,17 @@ app.post("/recognisePerson",function(req,res){
       // received a message sent from the Python script (a simple "print" statement)
       console.log(message);
     });
+	*/
 
 });
 
 app.get("/result",function(req,res){
 	setTimeout(function(){
-		fs.readFile("output.txt", {encoding: 'utf-8'}, function(err,data){
+	fs.readFile("output.txt", {encoding: 'utf-8'}, function(err,data){
+
     if (!err){
         console.log('received data: ' + data);
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.write(data);
-        response.end();
+		res.send({person: data});
     }else {
         console.log(err);
     }
