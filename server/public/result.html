@@ -76,8 +76,13 @@
         <div id="result" ng-if="person != ''">
 
   <!-- next assignment is to make a profile page with one grid no embeding -->
-
-
+            <div ng-if="person == 'tooFewSamples'">
+                <center id="box">
+                <h2>Headset Batter too low :/</h2>
+                <h2>Charge it some more and try again!</h2>
+            </center>
+            </div>
+            <div ng-if="person != 'tooFewSamples'">
 
 
             <div id="box">
@@ -91,6 +96,7 @@
             <hr>
             <p  style="font-size: 12px"> Is this not you? Press <a href="/">this link</a> to try again </p>
         </center>
+        </div>
         </div>
         </div>
     </div>

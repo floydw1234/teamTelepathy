@@ -71,7 +71,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 			setTimeout(function(){
 					doc.style.backgroundImage = "";
 					$scope.status.stat = 2;
-					window.location = "/result.html";
+					window.location = "/result";
 			},10000);
 		},10000);
 	}

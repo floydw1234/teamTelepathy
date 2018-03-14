@@ -48,7 +48,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
 
 	$scope.result = function(){
-		$http.get("/result")
+		$http.get("/getResult")
 		.success(function(data){
 			$scope.person = data.person;
 		})
@@ -59,7 +59,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
     $scope.result();
 
-	
+
 
 
 

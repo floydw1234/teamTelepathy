@@ -39,6 +39,10 @@ app.get("/training", function(req,res){
 	res.sendfile('public/training.html');
 });
 
+app.get("/result", function(req,res){
+	res.sendfile('public/result.html');
+});
+
 app.get("/game", function(req,res){
 	res.sendfile('public/game.html');
 });
@@ -73,7 +77,7 @@ app.get("/allValues", function(req,res){
 
 app.post("/recognisePerson",function(req,res){
 	result = "";
-	/*
+
 	var pyshell = new PythonShell("py/Identification.py");
 
 // sends a message to the Python script via stdin
@@ -83,11 +87,11 @@ app.post("/recognisePerson",function(req,res){
       // received a message sent from the Python script (a simple "print" statement)
       console.log(message);
     });
-	*/
+
 
 });
 
-app.get("/result",function(req,res){
+app.get("/getResult",function(req,res){
 	setTimeout(function(){
 	fs.readFile("output.txt", {encoding: 'utf-8'}, function(err,data){
 
