@@ -54,7 +54,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 		}
 
 	}
-	var url = "url(clown.jpg)"
+	var url = "url(img/clown.jpg)"
 	$scope.switchPicture = function(url){
 		var doc = document.getElementById("image");
 		setTimeout(function(){
@@ -64,7 +64,7 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 	}
 	$scope.switchPicture(url);
 	setTimeout(function(){
-			$scope.switchPicture("url(black.jpeg)");
+			$scope.switchPicture("url(img/black.jpeg)");
 	},10000);
 
 	/*\

@@ -62,10 +62,10 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
 
 	}
-	var url = "url(clown.jpg)"
+	var url = "url(img/clown.jpg)"
 	$scope.switchPicture = function(url){
 		var doc = document.getElementById("image");
-		doc.style.backgroundImage = "url(black.jpg)";
+		doc.style.backgroundImage = "url(img/black.jpg)";
 		setTimeout(function(){
 			doc.style.backgroundImage = url;
 			setTimeout(function(){
@@ -94,16 +94,4 @@ app.controller('mainController', ['$scope','$http','$q', function($scope, $http,
 
 	*/
 
-	$scope.getUsers = function(){
-	    $http.get('/userList')
-		.success(function(data){
-			$scope.userList = data.users;
-	    })
-		.error(function(data,status,headers,config){
-			$scope.ResponseDetails = JSON.stringify({data: data});
-	    });
-	};
-	$scope.selectUser = function(user){
-		$scope.currentUser = user;
-	}
 }]);

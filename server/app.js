@@ -77,6 +77,7 @@ app.get("/allValues", function(req,res){
 
 app.post("/recognisePerson",function(req,res){
 	result = "";
+	
 
 	var pyshell = new PythonShell("py/Identification.py");
 
@@ -87,6 +88,7 @@ app.post("/recognisePerson",function(req,res){
       // received a message sent from the Python script (a simple "print" statement)
       console.log(message);
     });
+
 
 
 });

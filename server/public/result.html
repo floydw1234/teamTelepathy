@@ -17,7 +17,7 @@
    </head>
    <style>
    #brain {
-       background-image : url("brainstem.jpg");
+       background-image : url("img/brainstem.jpg");
        background-size: 100% 100%;
        position:absolute;
        z-index:0;
@@ -39,7 +39,7 @@
     left: 45%;
 }
 #result{
-    background-image : url("grey.jpg");
+    background-image : url("img/grey.jpg");
     background-size: 100% 100%;
     position:absolute;
     z-index:0;
@@ -65,7 +65,7 @@
     100% { transform: rotate(360deg); }
 }
    </style>
-   <body ng-app="myApp" background="grey.jpg">
+   <body ng-app="myApp" background="img/grey.jpg">
        <script type="text/javascript"src="js/result.js"></script>
       <div class="container" ng-controller="mainController">
 
@@ -79,7 +79,7 @@
             <div ng-if="person == 'tooFewSamples'">
                 <center id="box">
                 <h2>Headset Batter too low :/</h2>
-                <h2>Charge it some more and try again!</h2>
+                <h2>Charge it some more and then <a href="/">click here</a> try again!</h2>
             </center>
             </div>
             <div ng-if="person != 'tooFewSamples'">
