@@ -76,18 +76,11 @@ app.get("/allValues", function(req,res){
 
 
 app.post("/recognisePerson",function(req,res){
-	result = "";
-	
 
-	var pyshell = new PythonShell("py/Identification.py");
-
-// sends a message to the Python script via stdin
-
-
-    pyshell.on('message', function (message) {
-      // received a message sent from the Python script (a simple "print" statement)
-      console.log(message);
-    });
+	PythonShell.run('py/Identification.py', function (err) {
+  		if (err) throw err;
+		res.send("success!");
+	});
 
 
 
