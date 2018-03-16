@@ -3,7 +3,7 @@ import csv
 #path="/home/ali/telep/test_graphs/"
 path="C:\\Users\\mrhaboon\\Desktop\\seniorproject\\test_graphs\\"
 #make a function for average given the database is the previous avg and new input
-#avg keys will be 350-500 input will be full
+#avg keys will be 350-600 input will be full
 #write script for old data
 
 datab=[[],[],[],[]]
@@ -158,13 +158,13 @@ def new_avg(new, avg_key1):
 
 	avg_key=m_inv1(avg_key1)
 	weight=float(int (avg_key[6][1]))
-	for i in range(150):
+	for i in range(250):
 		avg_key[6][i]=weight+1
 	result=[avg_key[0],avg_key[1],avg_key[2],avg_key[3],avg_key[4],avg_key[5],avg_key[6],avg_key[7]]
 	adj_new=m_inv1(new)
 	
 	for i in range(5):
-		result[i+1]=avg_wave(adj_new[i+1][350:500],avg_key[i+1],weight)
+		result[i+1]=avg_wave(adj_new[i+1][350:600],avg_key[i+1],weight)
 	result1=re_inv1(result)
 	return result1
 
@@ -176,6 +176,6 @@ def new_avg(new, avg_key1):
 
 def avg_wave(wn,ww,weight):
 	result=[]
-	for i in range(150):
+	for i in range(250):
 		result.append((int(wn[i])+int(ww[i])*weight)/(weight+1))
 	return result

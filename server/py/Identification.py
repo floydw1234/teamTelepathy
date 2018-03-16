@@ -205,52 +205,40 @@ testPersonRAW.append(low_betalist)
 testPersonRAW.append(high_betalist)
 testPersonRAW.append(gammalist)
 testPersonX = np.array(testPersonRAW)
-testPersonX = testPersonX[:,350:500].T
-#print testPersonX.shape
+testPersonX = testPersonX.T
+WEIGHT = [0.0008,1,0.0003,0,0]
 LENGTH = 150
 RESPONSE = 350
-trailnum = 1 #define how many trails you want to include
-xiaoyanEEG = [] * trailnum  #EEG: data direct from the database
-xiaoyanRAW = [] * trailnum  #RAW: convert EEG data to array form
-jingweiEEG = [] * trailnum
-jingweiRAW = [] * trailnum
-williamEEG = [] * trailnum
-williamRAW = [] * trailnum
-aliEEG = [] * trailnum
-aliRAW = [] * trailnum
-for idx in range(trailnum):
-    cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_raw where person = 'Xiaoyan' and trials = %s",(idx+1,))
-    xiaoyanEEG.append(cur.fetchall())
-    xiaoyanRAW.append(np.asarray(xiaoyanEEG[idx]))
-
-    cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_raw where person = 'Jingwei' and trials = %s",(idx+1,))
-    jingweiEEG.append(cur.fetchall())
-    jingweiRAW.append(np.asarray(jingweiEEG[idx]))
-
-    cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_raw where person = 'William' and trials = %s",(idx+1,))
-    williamEEG.append(cur.fetchall())
-    williamRAW.append(np.asarray(williamEEG[idx]))
-
-    cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_raw where person = 'Ali' and trials = %s",(idx+1,))
-    aliEEG.append(cur.fetchall())
-    aliRAW.append(np.asarray(aliEEG[idx]))
+OFFSETMAX = 45
 
 
-allEEGDict = {'ali':aliRAW,'jingwei':jingweiRAW,'william':williamRAW,'xiaoyan':xiaoyanRAW}
-ofile = open("output.txt","wb")
-for k1 in allEEGDict.keys():
-    '''
-    data = allEEGDict[k1][0]
-    avg_eeg = allEEGDict[k1][1][RESPONSE:RESPONSE+LENGTH,:]
-    result = cor.maxCorrelation(data,avg_eeg)
-    message = "\nThe correlation between trail 1 and trail 2 for " + k1 + " is: " + str(result)+"\n"
-    ofile.write(message)
-    '''
-    for i in range(trailnum):
-        data = allEEGDict[k1][i]
-        #print data.shape
-        avg_eeg = np.asarray(testPersonX)
-        result = cor.maxCorrelation(data,avg_eeg)
-        message = "The correlation between "+ k1 + " and  new User for trial " + str(i+1) + " is: " + str(result)+"\n"
-        ofile.write(message)
-print k1
+cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_avg where person = 'Xiaoyan' order by time asc")
+xiaoyanAVG = np.asarray(cur.fetchall())
+
+cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_avg where person = 'Jingwei' order by time asc")
+jingweiAVG = np.asarray(cur.fetchall())
+
+cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_avg where person = 'William' order by time asc")
+williamAVG = np.asarray(cur.fetchall())
+
+cur.execute("select theta,alpha,low_beta,high_beta,gamma from eeg_avg where person = 'Ali' order by time asc")
+aliAVG = np.asarray(cur.fetchall())
+
+avgEEGDict = {'ali':aliAVG,'jingwei':jingweiAVG,'william':williamAVG,'xiaoyan':xiaoyanAVG}
+
+#This part is for predict
+
+max = 0
+maxPerson = ""
+for key in avgEEGDict.keys():
+    avg = avgEEGDict[key]
+    result = cor.maxCorrelation(testPersonX,avg,response = RESPONSE, length = LENGTH,offset = OFFSETMAX)
+    weightedResult = result[0]*np.array(WEIGHT)
+    score = sum(weightedResult)
+    if score>max:
+        max = score
+        maxPerson = key
+ifile = open("output.txt","w")
+ifile.write(maxPerson)
+ifile.close()
+

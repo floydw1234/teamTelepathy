@@ -99,7 +99,7 @@ app.get("/getResult",function(req,res){
 });
 
 
-	},3000);
+	},5000);
 });
 
 
