@@ -1,6 +1,2 @@
 # teamTelepathy
-readingEEG waves to both play games and save the world
-
-
-
-Let's get freaky
+readingEEG waves to both play games and detect peoples brain patterns with an 80% accuracy
